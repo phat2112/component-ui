@@ -1,0 +1,13 @@
+.custom-hook {
+  display: flex;
+  align-items: flex-start;
+
+  &--syntax {
+    flex: 1;
+  }
+
+  &--example {
+    width: 40%;
+    margin-left: 20px;
+  }
+}

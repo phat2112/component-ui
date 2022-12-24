@@ -1,0 +1,19 @@
+.slide-container {
+  ul {
+    display: flex;
+    overflow: hidden;
+    width: 200px;
+    height: auto;
+
+    li {
+      display: block;
+      margin: 0 20px;
+      list-style-type: none;
+
+      img {
+        width: 200px;
+        height: auto;
+      }
+    }
+  }
+}

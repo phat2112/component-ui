@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CustomHook from "Screens/CustomHook";
+import DesignPattern from "Screens/DesignPattern";
+import ReactExperiments from "Screens/ReactExperiments";
+import CustomLayoutElement from "Screens/CustomLayoutElement";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/custom-hook" element={<CustomHook />} />
+          <Route path="/design-pattern" element={<DesignPattern />} />
+          <Route path="/react-experiment" element={<ReactExperiments />} />
+          <Route path="/custom-layout" element={<CustomLayoutElement />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

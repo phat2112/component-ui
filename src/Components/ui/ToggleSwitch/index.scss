@@ -1,0 +1,40 @@
+.input-switch {
+  visibility: hidden;
+}
+
+.toggle {
+  width: 70px;
+  position: relative;
+  height: 20px;
+  background: gray;
+  border-radius: 20px;
+  transition: all 0.3s ease-in;
+  display: block;
+
+  &::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+    transition: all 0.3s;
+  }
+
+  &:active {
+    &::after {
+      width: 23px;
+    }
+  }
+}
+
+input:checked + .toggle {
+  background-color: var(--active-bgr);
+  &::after {
+    transform: translate(-100%, -50%);
+    left: calc(100% - 2px);
+  }
+}

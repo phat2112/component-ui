@@ -1,0 +1,26 @@
+.slide-bar {
+  width: 100px;
+  height: 10px;
+  background: gray;
+  border-radius: 10px;
+  position: relative;
+
+  &--circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    left: var(--circle-direction);
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  &--circle-active {
+    width: 25px;
+    height: 25px;
+  }
+}
