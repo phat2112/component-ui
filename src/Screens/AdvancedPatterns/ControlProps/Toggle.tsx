@@ -1,13 +1,14 @@
+import React from "react";
 import ToggleSwitch from "Components/ui/ToggleSwitch";
 import useToggle, { State, Actions } from "./useToggle";
 
 interface Props {
   on: boolean;
-  onChange?: (state: State, action: Actions) => void;
+  handleChange: (state: State, actions: Actions) => void;
 }
 
-const Toggle: React.FC<Props> = ({ on: controlledOn, onChange }) => {
-  const { on, toggle } = useToggle({ controlledOn, onChange });
+const Toggle: React.FC<Props> = ({ on: controlledOn, handleChange }) => {
+  const { on, toggle } = useToggle({ controlledOn, handleChange });
   return <ToggleSwitch on={on} onClick={toggle} />;
 };
 

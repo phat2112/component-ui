@@ -1,4 +1,4 @@
-import { useReducer, useRef } from "react";
+import { useReducer } from "react";
 
 export type State = {
   on: boolean;
@@ -16,47 +16,45 @@ export type Actions = {
 export function reducer(state: State, actions: Actions) {
   switch (actions.type) {
     case actionTypes.toggle: {
-      return { ...state, on: !state.on };
+      return {
+        ...state,
+        on: !state.on,
+      };
     }
-
     case actionTypes.reset: {
-      return { ...state, on: false };
+      return {
+        ...state,
+        on: false,
+      };
     }
-
-    default: {
-      throw new Error(`Unsupported type ${actions.type}`);
-    }
+    default:
+      throw new Error(`Unsupported action type ${actions.type}`);
   }
 }
-export type ReducerType = typeof reducer;
 
-export default function useToggle({
-  on = false,
-  onChange,
-  controlledOn,
-}: {
-  on?: boolean;
-  onChange?: (state: State, actions: Actions) => void;
+type Props = {
   controlledOn?: boolean;
-}) {
-  const { current: initialState } = useRef({ on });
-  const [state, dispatch] = useReducer(reducer, initialState);
+  handleChange?: (state: State, actions: Actions) => void;
+};
 
-  const newOnState = controlledOn || state.on;
+export default function useToggle({ controlledOn, handleChange }: Props) {
+  const isControlledOn = controlledOn || false;
+  const [state, dispatch] = useReducer(reducer, {
+    on: isControlledOn,
+  });
 
-  const dispatchWithChanges = (action: Actions) => {
+  const newControlledOn = controlledOn || state.on;
+
+  const dispatchWithChange = (action: Actions) => {
     if (!controlledOn) {
       dispatch(action);
     }
-    onChange?.(reducer({ ...state, on: newOnState }, action), action);
+
+    handleChange?.(reducer({ ...state, on: newControlledOn }, action), action);
   };
 
-  const toggle = () => dispatchWithChanges({ type: actionTypes.toggle });
-  const reset = () => dispatchWithChanges({ type: actionTypes.reset });
+  const toggle = () => dispatchWithChange({ type: actionTypes.toggle });
+  const reset = () => dispatchWithChange({ type: actionTypes.reset });
 
-  return {
-    on: newOnState,
-    toggle,
-    reset,
-  };
+  return { toggle, reset, on: newControlledOn };
 }

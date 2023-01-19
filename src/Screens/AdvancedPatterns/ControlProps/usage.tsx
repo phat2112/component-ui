@@ -1,36 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Toggle from "./Toggle";
-import { Actions, State, actionTypes } from "./useToggle";
+import { State, Actions, actionTypes, reducer } from "./useToggle";
 
 const Usage = () => {
   const [bothOn, setBothOn] = useState(false);
-  const [timesClicked, setTimesClicked] = useState(0);
-  const handleSyncedChange = (state: State, actions: Actions) => {
-    if (actions.type === actionTypes.toggle && timesClicked > 4) {
+  const [clickedTime, setClickedTime] = useState(0);
+  const clickedMostTime = clickedTime >= 4;
+
+  const handleChange = (state: State, actions: Actions) => {
+    console.log({ actions, clickedMostTime });
+    if (actions.type === actionTypes.toggle && clickedMostTime) {
       return;
     }
 
-    console.log("state", state);
+    console.log({ state, actions });
     setBothOn(state.on);
-    setTimesClicked((c) => c + 1);
+    setClickedTime((c) => c + 1);
+    reducer(state, actions);
   };
 
-  console.log("bothOn", bothOn);
   return (
     <div>
-      <div>
-        <h1>Controlled props</h1>
-        <Toggle on={bothOn} onChange={handleSyncedChange} />
-        <Toggle on={bothOn} onChange={handleSyncedChange} />
-
-        <br />
-        <button onClick={() => setBothOn(false)}>Reset</button>
-      </div>
-
-      <div>
-        <h1>Uncontrolled props</h1>
-        <Toggle on={false} />
-      </div>
+      <h1>Controlled props</h1>
+      <Toggle on={bothOn} handleChange={handleChange} />
+      <Toggle on={bothOn} handleChange={handleChange} />
+      <br />
+      <button
+        onClick={() => handleChange({ on: false }, { type: actionTypes.reset })}
+      >
+        Reset
+      </button>
     </div>
   );
 };
