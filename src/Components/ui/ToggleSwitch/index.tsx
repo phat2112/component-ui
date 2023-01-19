@@ -1,10 +1,21 @@
 import React from "react";
 import "./index.scss";
 
-const ToggleSwitch = () => {
+interface Props {
+  on: boolean;
+  onClick: () => void;
+}
+
+const ToggleSwitch: React.FC<Props> = ({ on, onClick }) => {
   return (
     <>
-      <input type="checkbox" id="switch" className="input-switch" />
+      <input
+        type="checkbox"
+        id="switch"
+        className="input-switch"
+        checked={on}
+        onClick={onClick}
+      />
       <label
         htmlFor="switch"
         className="toggle"

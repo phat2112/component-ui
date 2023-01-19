@@ -1,4 +1,5 @@
-export const useClickOutside = ` import { useEffect, useState, useRef } from "react";
+ 
+ export const useClickOutside = ` import { useEffect, useState, useRef } from "react";
 
 export default function useClickOutside() {
   const [isComponentVisible, setComponentVisible] = useState(false);
@@ -23,8 +24,8 @@ export default function useClickOutside() {
     isComponentVisible,
   };
 }
- `;
-export const useDisclosure = ` import { useState } from "react";
+ `  
+ export const useDisclosure = ` import { useState } from "react";
 
 interface Props {
   isOpen?: boolean;
@@ -51,8 +52,41 @@ export default function useDisclosure({
     },
   };
 }
- `;
-export const usePrevious = ` import { useRef, useEffect } from "react";
+ `  
+ export const useElementOnScreen = ` import { useEffect, useRef, useState } from "react";
+
+interface Props {
+  options: IntersectionObserverInit;
+}
+
+export default function useElementOnScreen({ options }: Props) {
+  const containerRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const observerCallback = (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+
+    setIsVisible(entry.isIntersecting);
+  };
+
+  useEffect(() => {
+    let observer: IntersectionObserver;
+    let observeRefValue: HTMLElement;
+    if (containerRef.current) {
+      observer = new IntersectionObserver(observerCallback, options);
+      observer.observe(containerRef.current);
+      observeRefValue = containerRef.current;
+    }
+
+    return () => {
+      observer.unobserve(observeRefValue);
+    };
+  }, [options]);
+
+  return [containerRef, isVisible];
+}
+ `  
+ export const usePrevious = ` import { useRef, useEffect } from "react";
 
 export default function usePrevious(value: any) {
   const previousVal = useRef();
@@ -63,8 +97,8 @@ export default function usePrevious(value: any) {
 
   return previousVal;
 }
- `;
-export const useToggle = ` import { useCallback, useState } from "react";
+ `  
+ export const useToggle = ` import { useCallback, useState } from "react";
 
 export default function useToggle(
   initialValue = false
@@ -82,4 +116,4 @@ export default function useToggle(
 
   return [isShow, toggle, customToggle];
 }
- `;
+ ` 

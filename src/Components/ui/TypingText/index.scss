@@ -1,0 +1,49 @@
+.loader {
+  position: relative;
+  -webkit-box-reflect: below -12px linear-gradient(transparent, #0002);
+
+  p {
+    color: #03e9f4;
+    letter-spacing: 5px;
+    font-size: 4em;
+    text-transform: uppercase;
+    margin: 0;
+    animation: typing 8s steps(10) infinite;
+    overflow: hidden;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    top: 0;
+    right: 0;
+    background: #03e9f4;
+    animation: blinkCursor 0.8s steps(3) infinite;
+  }
+}
+
+@keyframes blinkCursor {
+  0%,
+  75% {
+    opacity: 1;
+  }
+  76%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes typing {
+  0%,
+  90%,
+  100% {
+    width: 0;
+  }
+
+  30%,
+  60% {
+    width: var(--content-text-width);
+  }
+}

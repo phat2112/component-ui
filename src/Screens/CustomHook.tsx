@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
 import Prism from "prismjs";
-import { useDisclosure, useClickOutside, useToggle } from "Constants/hookText";
+import {
+  useDisclosure,
+  useClickOutside,
+  useToggle,
+  useElementOnScreen,
+} from "Constants/hookText";
 import Disclosure from "Components/Disclosure";
 import ClickOutside from "Components/ClickOutside";
 import Toggle from "Components/Toggle";
+import DetectElementOnScreen from "Components/DetectElementOnScreen";
 
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism-okaidia.css";
@@ -56,6 +62,12 @@ const CustomHook = () => {
         title="Use Toggle"
         syntax={useToggle}
         example={<Toggle />}
+      />
+
+      <HookComponent
+        title="Use Element on Screen"
+        syntax={useElementOnScreen}
+        example={<DetectElementOnScreen />}
       />
     </div>
   );
