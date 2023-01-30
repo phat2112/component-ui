@@ -9,14 +9,14 @@ interface Props {
 const TypingText: React.FC<Props> = ({ content }) => {
   const textRef = useRef<HTMLParagraphElement | null>(null);
 
-  console.log(textRef.current?.clientWidth);
+  console.log(textRef.current);
   return (
     <div className="loader">
       <p
         ref={textRef}
         style={
           {
-            "--content-text-width": `${textRef.current?.clientWidth || 0}px`,
+            "--content-text-width": `${textRef.current?.clientWidth || 400}px`,
           } as CSSProperties
         }
       >

@@ -10,6 +10,7 @@ import {
   PropsGetters,
   StateReducer,
   ControlProps,
+  StateInitializer,
 } from "Screens/AdvancedPatterns";
 
 function App() {
@@ -43,6 +44,11 @@ function App() {
               index={false}
               path="control-props"
               element={<ControlProps />}
+            />
+            <Route
+              index={false}
+              path="state-initialization"
+              element={<StateInitializer />}
             />
           </Route>
         </Routes>
